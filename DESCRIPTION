@@ -1,11 +1,12 @@
 Package: IgAScores
-Title: Calculate Various Indices to Score IgA binding in IgA-Seq Experiments
+Title: Calculate Various Indices to Score IgA Binding in IgA-Seq Experiments
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "Matthew",
            family = "Jackson",
            role = c("aut", "cre"),
            email = "matthew.jackson@kennedy.ox.ac.uk")
-Description: This package contains functions to calculate various different indices that have been used to score IgA binding to bacteria in IgA-Seq experiments. This includes the original ratio based techniques and more recent methods that I developed as part of this package, which utilise Bayes' theorem to account for starting abundances of taxa and provide scores more reflective of IgA specificity. The aim is to create functions to calculate single scores and also table-wide scores for multiple taxa.
+Description: This package contains functions to calculate various different indices that have been used to score IgA binding to bacteria in IgA-Seq experiments. This includes the original ratio based techniques and more recent methods from this package, which utilise Bayes' theorem to account for starting abundances of taxa and provide scores more reflective of IgA specificity. The package contains individual functions for each method to calculate scores for a single sample and taxa and the function igascores() that calculates any of the scores table-wide (for multiple taxa and samples).
 License: GPL
 Encoding: UTF-8
+RoxygenNote: 6.1.99.9001
