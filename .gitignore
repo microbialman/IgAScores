@@ -1,2 +1,4 @@
 .Rproj.user
 .RData
+*DS_Store
+._*
