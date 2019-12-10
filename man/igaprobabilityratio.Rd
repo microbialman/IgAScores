@@ -15,7 +15,7 @@ igaprobabilityratio(posabund, negabund, possize, negsize, pseudo = 1e-05)
 
 \item{negsize}{The fraction of events in the flow cytometer classed as IgA negative/low (as a decimal fraction not a \%).}
 
-\item{psuedo}{Pseudo count added to both the IgA positive and negative abundance values prior to calculation. Defaults to 1e-5. Recommend setting to minimum observed abundance in whole dataset.}
+\item{pseudo}{Pseudo count added to both the IgA positive and negative abundance values prior to calculation. Defaults to 1e-5. Recommend setting to minimum observed abundance in whole dataset.}
 }
 \description{
 This function calculates the ratio of the IgA positive fraction probability relative to the IgA negative fraction probability for a single taxa in a single sample.

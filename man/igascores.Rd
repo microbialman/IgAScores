@@ -44,14 +44,6 @@ Each method requires different inputs as detailed below:
 \item palm - equivalent to palmindex() - requires two seperate dataframes with iga positive abundances and iga negative abundances, and a pseudo count
 }
 }
-\examples{
-igascores(posdf,negdf,poss,negs,pseudocount)
-igascores(posabunds=posdf,negabunds=negdf,possizes=poss,negsizes=negs,pseudo=0.0002,method="probratio")
-igascores(posadbunds=posdf,possizes=poss,totabunds=totdf,method="prob")
-igascores(negabunds=negdf,negsizes=negs,totabunds=totdf,method="prob")
-igascores(posabunds=posdf,negabunds=negdf,pseudo=0.0002,method="kau")
-igascores(posabunds=posdf,negabunds=negdf,pseudo=0.0002,method="palm")
-}
 \keyword{Jackson,}
 \keyword{Kau,}
 \keyword{Palm,}

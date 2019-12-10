@@ -24,13 +24,6 @@
 #' @param method Method to use to score IgA binding. One of: "probratio","prob","kau","palm". Default is "probratio".
 #' @keywords iga, score, Kau, Palm, Jackson, index, ratio, probability, experiment, iga-seq
 #' @export
-#' @examples
-#' igascores(posdf,negdf,poss,negs,pseudocount)
-#' igascores(posabunds=posdf,negabunds=negdf,possizes=poss,negsizes=negs,pseudo=0.0002,method="probratio")
-#' igascores(posadbunds=posdf,possizes=poss,totabunds=totdf,method="prob")
-#' igascores(negabunds=negdf,negsizes=negs,totabunds=totdf,method="prob")
-#' igascores(posabunds=posdf,negabunds=negdf,pseudo=0.0002,method="kau")
-#' igascores(posabunds=posdf,negabunds=negdf,pseudo=0.0002,method="palm")
 
 igascores <- function(posabunds=NULL,negabunds=NULL,possizes=NULL,negsizes=NULL,pseudo=NULL,totabunds=NULL,method="probratio"){
   methods <- c("probratio","prob","kau","palm")
@@ -106,11 +99,9 @@ igascores <- function(posabunds=NULL,negabunds=NULL,possizes=NULL,negsizes=NULL,
   }
   ##probratio - default
   else if(method=="probratio"){
-    posabunds <- posabunds+pseudo
-    negabunds <- negabunds+pseudo
-    nume <- rowprod(posabunds,possizes)
-    denom <- rowprod(negabunds,negsizes)
-    scores <- log(nume/denom)
+    nume <- rowprod(posabunds,possizes)+pseudo
+    denom <- rowprod(negabunds,negsizes)+pseudo
+    scores <- log2(nume/denom)
   }
   return(scores)
 }

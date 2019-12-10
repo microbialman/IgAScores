@@ -6,8 +6,6 @@
 #' @param percentage Should values be returned as a percentage? i.e multiplied by 100. Default is FALSE (as required for most IgA scoring approaches).
 #' @keywords abundance, normalisation, microbiome
 #' @export
-#' @examples
-#' relabund(ASVcounts)
 
 relabund <- function(counttable,percentage=FALSE){
   reltab <- data.frame(t(t(counttable)/colSums(counttable)))

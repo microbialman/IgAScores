@@ -14,9 +14,6 @@ relabund(counttable, percentage = FALSE)
 \description{
 This function converts values in a dataframe to a fraction/percentage of the sum of their column.
 }
-\examples{
-relabund(ASVcounts)
-}
 \keyword{abundance,}
 \keyword{microbiome}
 \keyword{normalisation,}

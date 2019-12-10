@@ -11,7 +11,7 @@ kauindex(posabund, negabund, pseudo = 1e-05)
 
 \item{negabund}{The abundance of the bacteria in the IgA negative/low fraction (abundances should sum to 1 not as a \%).}
 
-\item{psuedo}{Pseudo count added to both the IgA positive and negative fraction values prior to calculation. Defaults to 1e-5. Recommend setting to minimum observed abundance in whole dataset.}
+\item{pseudo}{Pseudo count added to both the IgA positive and negative fraction values prior to calculation. Defaults to 1e-5. Recommend setting to minimum observed abundance in whole dataset.}
 }
 \description{
 This function calculates the IgA Index as defined in Kau et al. 2015 (Sci. Trans. Med., doi: 10.1126/scitranslmed.aaa4877) for a single taxon in a single sample.

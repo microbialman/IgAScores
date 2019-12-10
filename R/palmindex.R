@@ -4,7 +4,7 @@
 #'
 #' @param posabund Abundance of the bacteria in the IgA positive/high fraction.
 #' @param negabund Abundance of the bacteria in the IgA negative/low fraction.
-#' @param psuedo Pseudo count added to the abundance of the IgA negative fraction if the bacteria is not in that fraction. Defaults to 1e-5. Recommend setting to minimum observed abundance in whole dataset.
+#' @param pseudo Pseudo count added to the abundance of the IgA negative fraction if the bacteria is not in that fraction. Defaults to 1e-5. Recommend setting to minimum observed abundance in whole dataset.
 #' @keywords iga, coating, index, Palm, iga-seq
 #' @export
 #' @examples

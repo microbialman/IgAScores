@@ -11,7 +11,7 @@ palmindex(posabund, negabund, pseudo = 1e-05)
 
 \item{negabund}{Abundance of the bacteria in the IgA negative/low fraction.}
 
-\item{psuedo}{Pseudo count added to the abundance of the IgA negative fraction if the bacteria is not in that fraction. Defaults to 1e-5. Recommend setting to minimum observed abundance in whole dataset.}
+\item{pseudo}{Pseudo count added to the abundance of the IgA negative fraction if the bacteria is not in that fraction. Defaults to 1e-5. Recommend setting to minimum observed abundance in whole dataset.}
 }
 \description{
 This function calculates the IgA Index as defined in Palm et al. 2014 (Cell, doi: 10.1016/j.cell.2014.08.006) for a single taxon in a single sample.
