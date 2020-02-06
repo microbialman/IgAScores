@@ -8,35 +8,39 @@
 #' Species counts are generated on a log distribution for a given number of samples at an even depth.
 #' For each bacteria in each sample, an IgA binding value is then assigned by sampling from its species IgA value distribution.
 #' The value thresholds defining the positive and negative gates are then used to generate positive and negative counts tables of the bacteria whose values fall into these groups.
+#' A second mode can also be used (by toggling betweengroups) that will introduce a consistent abundance change in half the samples by increasing one species in them. This can be used to simulate case-control experiments where, as an example,  one taxa has bloomed.
 #'
 #'Note: IgA values are simulated for each bacteria in each sample, setting the combination of the samplingdepth, number of species, and number of samples too high will slow the data generation.
 #'
-#' @param igavalmeans A vector of mean IgA values for as many species as you wish to simulate. Will default to log normal distributed vector of 10 species.
-#' @param igavalsds A vector of standard deviations that will be used to generate IgA value distributions alongside the means. Defaults to 10 for all values.
+#' @param igavalmeans A vector of mean IgA values for as many species as you wish to simulate. Will default to an exponentially distributed vector of 10 species.
+#' @param igavalsds A vector of standard deviations that will be used to generate IgA value distributions alongside the means. Defaults to 1 for all values.
 #' @param nosamples The number of samples to generate simulated data from. Defaults to 10.
 #' @param samplingdepth The number of bacteria to simulate in each sample. Defaults to 100000.
-#' @param posthresh The IgA value threshold above which a bacteria will be considered IgA positive. Defaults to 25 (which is reasonable only with the other defaults). It is recommended to run a simulation twice to determine reasonble thresholds on the first go.
-#' @param negthresh The IgA value threshold below which a bacteria will be considered IgA negative. Defaults to 0 (which is reasonable only with the other defaults). It is recommended to run a simulation twice to determine reasonble thresholds on the first go.
+#' @param posthresh The IgA value threshold above which a bacteria will be considered IgA positive. Defaults to 4 (which is reasonable with the other defaults). It is recommended to run a simulation twice to determine reasonble thresholds on the first go.
+#' @param negthresh The IgA value threshold below which a bacteria will be considered IgA negative. Defaults to 2 (which is reasonable with the other defaults). It is recommended to run a simulation twice to determine reasonble thresholds on the first go.
 #' @param seed Seed for random number generation. Has a default so must be changed to rerun simulations.
+#' @param betweengroups If TRUE this will modify starting abundaunced of half of the samples similarly (by adding betweenper\% of total counts to a single species) to simulate the case where there is an abundance shift without a change in IgA binding affinity. Defaults to FALSE.
+#' @param betweenper Percentage of total counts to add to a species in the second group in the betweengroups mode.
+#' @param betweensp Species (by index) to increased in between groups simulation. Chosen at random if NULL (default).
 #' @keywords iga, iga-seq, simulation, benchmarking
-#' @importFrom stats rlnorm rnorm
+#' @importFrom stats rlnorm rnorm rexp
 #' @export
 #' @examples
 #' dat <- simulateigaseq()
 #' dat <- simulateigaseq(c(0.1,1,10,15),rep(1,4),nosamples=10,posthresh=8,negthresh=4)
 
-simulateigaseq <- function(igavalmeans=NULL,igavalsds=NULL,nosamples=10,samplingdepth=100000,posthresh=50,negthresh=10,seed=808){
+simulateigaseq <- function(igavalmeans=NULL,igavalsds=NULL,nosamples=10,samplingdepth=100000,posthresh=4,negthresh=2,seed=66,betweengroups=FALSE, betweenper=10, betweensp=NULL){
   #use seed as there is a lot of random generation
   set.seed(seed)
 
   #set to default IgA mean value per species if none given - this value is just an arbitrary number relating to relative binding between species
   if(is.null(igavalmeans)){
-  #by default use a log normal distribution of 10 values
-  igavalmeans <- rlnorm(10, sdlog = 2)
+  #by default use an exponential distribution of 10 values
+  igavalmeans <- 2^rexp(10,rate=1)
   }
-  #if no SD is given for each species IgA value distribution just use 10 for all
+  #if no SD is given for each species IgA value distribution just use 1 for all
   if(is.null(igavalsds)){
-  igavalsds=rep(20,length(igavalmeans))
+  igavalsds=rep(1,length(igavalmeans))
   }
   #species names 1 to n
   speciesnames <- paste0("Species",c(1:length(igavalmeans)))
@@ -62,6 +66,29 @@ simulateigaseq <- function(igavalmeans=NULL,igavalsds=NULL,nosamples=10,sampling
   #relabel
   rownames(speciesabunds) <- speciesnames
   colnames(speciesabunds) <- samplenames
+
+  #if between groups is true we want to induce a similar change in half the samples starting abundances, for this we will add 0.1 to one of the species
+  #simulating outgrowth of one taxa under a given condition
+  expgroup <- rep(1,ncol(speciesabunds))
+  names(expgroup) <- samplenames
+  changesp <- NULL
+  if(betweengroups==TRUE){
+    #set half of the samples to be group 2
+    g2size <- round(ncol(speciesabunds)/2)
+    #choose a species to add if NULL
+    if(is.null(betweensp)){
+      changesp <- sample(c(1:nrow(speciesabunds)),1)
+    }else{
+      changesp <- betweensp
+    }
+    expgroup[g2size:ncol(speciesabunds)] <- 2
+    speciesabunds[changesp,g2size:ncol(speciesabunds)] <- speciesabunds[changesp,g2size:ncol(speciesabunds)] + (samplingdepth*(betweenper/100))
+    #convert back to even depth
+    speciesabunds <- round(t(t(speciesabunds)/colSums(speciesabunds))*samplingdepth)
+    #level off again
+    speciesabunds[1,] <- speciesabunds[1,]+(samplingdepth-colSums(speciesabunds))
+    changesp <- speciesnames[changesp]
+  }
 
   #for each individual bacteria in the counts generate above, assign it an IgA binding value that is sampled from the a normal distribution based on the mean and SD IgA value for its species
   sample <- c()
@@ -91,7 +118,7 @@ simulateigaseq <- function(igavalmeans=NULL,igavalsds=NULL,nosamples=10,sampling
   negsizes <- colSums(negcounts)/colSums(speciesabunds)
 
   #return: the whole counts table, the pos counts, the neg counts (and relative abundance equivalents), the pos fraction sizes, the neg fraction sizes, and the IgA binding table (for plotting density), as well as the input variables
-  returnlist <- list(wholecounts=speciesabunds, wholeabunds=relabund(speciesabunds), poscounts=poscounts, posabunds=relabund(poscounts), negcounts=negcounts, negabunds=relabund(negcounts), possizes=possizes, negsizes=negsizes, igabinding=longigabinding, igavalmeans=igavalmeans, igavalsds=igavalsds, posthresh=posthresh, negthresh=negthresh)
+  returnlist <- list(wholecounts=speciesabunds, wholeabunds=relabund(speciesabunds), poscounts=poscounts, posabunds=relabund(poscounts), negcounts=negcounts, negabunds=relabund(negcounts), possizes=possizes, negsizes=negsizes, igabinding=longigabinding, igavalmeans=igavalmeans, igavalsds=igavalsds, posthresh=posthresh, negthresh=negthresh, expgroup=expgroup, expspecies=changesp)
   return(returnlist)
 }
 

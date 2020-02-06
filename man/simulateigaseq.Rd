@@ -9,25 +9,34 @@ simulateigaseq(
   igavalsds = NULL,
   nosamples = 10,
   samplingdepth = 1e+05,
-  posthresh = 50,
-  negthresh = 10,
-  seed = 808
+  posthresh = 4,
+  negthresh = 2,
+  seed = 66,
+  betweengroups = FALSE,
+  betweenper = 10,
+  betweensp = NULL
 )
 }
 \arguments{
-\item{igavalmeans}{A vector of mean IgA values for as many species as you wish to simulate. Will default to log normal distributed vector of 10 species.}
+\item{igavalmeans}{A vector of mean IgA values for as many species as you wish to simulate. Will default to an exponentially distributed vector of 10 species.}
 
-\item{igavalsds}{A vector of standard deviations that will be used to generate IgA value distributions alongside the means. Defaults to 10 for all values.}
+\item{igavalsds}{A vector of standard deviations that will be used to generate IgA value distributions alongside the means. Defaults to 1 for all values.}
 
 \item{nosamples}{The number of samples to generate simulated data from. Defaults to 10.}
 
 \item{samplingdepth}{The number of bacteria to simulate in each sample. Defaults to 100000.}
 
-\item{posthresh}{The IgA value threshold above which a bacteria will be considered IgA positive. Defaults to 25 (which is reasonable only with the other defaults). It is recommended to run a simulation twice to determine reasonble thresholds on the first go.}
+\item{posthresh}{The IgA value threshold above which a bacteria will be considered IgA positive. Defaults to 4 (which is reasonable with the other defaults). It is recommended to run a simulation twice to determine reasonble thresholds on the first go.}
 
-\item{negthresh}{The IgA value threshold below which a bacteria will be considered IgA negative. Defaults to 0 (which is reasonable only with the other defaults). It is recommended to run a simulation twice to determine reasonble thresholds on the first go.}
+\item{negthresh}{The IgA value threshold below which a bacteria will be considered IgA negative. Defaults to 2 (which is reasonable with the other defaults). It is recommended to run a simulation twice to determine reasonble thresholds on the first go.}
 
 \item{seed}{Seed for random number generation. Has a default so must be changed to rerun simulations.}
+
+\item{betweengroups}{If TRUE this will modify starting abundaunced of half of the samples similarly (by adding betweenper\% of total counts to a single species) to simulate the case where there is an abundance shift without a change in IgA binding affinity. Defaults to FALSE.}
+
+\item{betweenper}{Percentage of total counts to add to a species in the second group in the betweengroups mode.}
+
+\item{betweensp}{Species (by index) to increased in between groups simulation. Chosen at random if NULL (default).}
 }
 \description{
 This function will generate a simulated IgA-Seq data set starting from a list containing the mean (and standard devations) of IgA binding values expected for each species and cut-offs for defining the IgA postive and negative gates.
@@ -36,6 +45,7 @@ These values are treated as the means of a normal distribution of IgA binding va
 Species counts are generated on a log distribution for a given number of samples at an even depth.
 For each bacteria in each sample, an IgA binding value is then assigned by sampling from its species IgA value distribution.
 The value thresholds defining the positive and negative gates are then used to generate positive and negative counts tables of the bacteria whose values fall into these groups.
+A second mode can also be used (by toggling betweengroups) that will introduce a consistent abundance change in half the samples by increasing one species in them. This can be used to simulate case-control experiments where, as an example,  one taxa has bloomed.
 
 Note: IgA values are simulated for each bacteria in each sample, setting the combination of the samplingdepth, number of species, and number of samples too high will slow the data generation.
 }
