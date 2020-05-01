@@ -11,7 +11,8 @@ igascores(
   negsizes = NULL,
   pseudo = NULL,
   totabunds = NULL,
-  method = "probratio"
+  method = "probratio",
+  scaleratio = TRUE
 )
 }
 \arguments{
@@ -28,6 +29,8 @@ igascores(
 \item{totabunds}{A dataframe of taxa abundances in the whole/initial samples. Samples as columns and taxa as rows, column and row names must match across abundance tables.}
 
 \item{method}{Method to use to score IgA binding. One of: "probratio","prob","kau","palm". Default is "probratio".}
+
+\item{scaleratio}{Should probratio scores be scaled to the pseudocount. Default is TRUE.}
 }
 \description{
 This function enables calculation of a variety of different indicies for scoring IgA binding to taxa in IgA-Seq experiments.

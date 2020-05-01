@@ -9,12 +9,13 @@
 #' @param possize The fraction of events in the flow cytometer classed as IgA postive/high (as a decimal fraction not a \%).
 #' @param negsize The fraction of events in the flow cytometer classed as IgA negative/low (as a decimal fraction not a \%).
 #' @param pseudo Pseudo count added to both the IgA positive and negative abundance values prior to calculation. Defaults to 1e-5. Recommend setting to minimum observed abundance in whole dataset.
+#' @param scaleratio Should probratio scores be scaled to the pseudocount. Default is TRUE.
 #' @keywords iga, probability, ratio, Jackson, iga-seq
 #' @export
 #' @examples
 #' igaprobabilityratio(posabund=0.2,negabund=0.05,possize=0.05,negsize=0.6,pseudo=0.0002)
 
-igaprobabilityratio <- function(posabund,negabund,possize,negsize,pseudo=1e-5){
+igaprobabilityratio <- function(posabund,negabund,possize,negsize,pseudo=1e-5,scaleratio=TRUE){
   if(posabund<0|negabund<0){
     stop("Postive and negative abundances must be greater than or equal to zero.")
   }
@@ -24,8 +25,16 @@ igaprobabilityratio <- function(posabund,negabund,possize,negsize,pseudo=1e-5){
   if(posabund>1|negabund>1|possize>1|negsize>1){
     stop("Abundance and fraction values should be less than 1. Function expects values relative to 1 not 100 (i.e. not a percentage).")
   }
+  vals <- c(posabund,negabund)
+  minval <- min(vals[vals!=0])
+  if(pseudo>minval){
+    stop("Pseudo count must be smaller than lowest non-zero abundance.")
+  }
   nume <- (posabund*possize)+pseudo
   denom <- (negabund*negsize)+pseudo
   ipr <- log2((nume/denom))
-  return(ipr)
+  scaler <- 1
+  if(scaleratio==TRUE){
+  scaler <- log2((1+pseudo)/pseudo)}
+  return(ipr/scaler)
 }

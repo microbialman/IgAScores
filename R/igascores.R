@@ -22,10 +22,11 @@
 #' @param negsizes A named vector containing the fraction of events in the IgA negative gate for each sample, with sample names matching abundance dataframes.
 #' @param totabunds A dataframe of taxa abundances in the whole/initial samples. Samples as columns and taxa as rows, column and row names must match across abundance tables.
 #' @param method Method to use to score IgA binding. One of: "probratio","prob","kau","palm". Default is "probratio".
+#' @param scaleratio Should probratio scores be scaled to the pseudocount. Default is TRUE.
 #' @keywords iga, score, Kau, Palm, Jackson, index, ratio, probability, experiment, iga-seq
 #' @export
 
-igascores <- function(posabunds=NULL,negabunds=NULL,possizes=NULL,negsizes=NULL,pseudo=NULL,totabunds=NULL,method="probratio"){
+igascores <- function(posabunds=NULL,negabunds=NULL,possizes=NULL,negsizes=NULL,pseudo=NULL,totabunds=NULL, method="probratio", scaleratio=TRUE){
   methods <- c("probratio","prob","kau","palm")
   if(!method%in%methods){
     stop(paste0(method," is not a valid method."))
@@ -43,6 +44,10 @@ igascores <- function(posabunds=NULL,negabunds=NULL,possizes=NULL,negsizes=NULL,
   else if(method=="probratio"){
     if(is.null(posabunds)|is.null(negabunds)|is.null(pseudo)|is.null(possizes)|is.null(negsizes)){
       stop("probratio method requires positive and negative abundance tables, positive and negative gate sizes, and a pseudocount. Specify posabunds, negabunds, possizes, negsizes and pseudo.")
+    }
+    minval <- min(c(min(posabunds[posabunds!=0]),min(negabunds[negabunds!=0])))
+    if(pseudo>minval){
+      stop("Pseudo count must be lower than smallest non-zero abundance value.")
     }
     checkpseudo(pseudo)
     checktabs(posabunds,negabunds)
@@ -102,6 +107,9 @@ igascores <- function(posabunds=NULL,negabunds=NULL,possizes=NULL,negsizes=NULL,
     nume <- rowprod(posabunds,possizes)+pseudo
     denom <- rowprod(negabunds,negsizes)+pseudo
     scores <- log2(nume/denom)
+    if(scaleratio==TRUE){
+    scaler <- log2((1+pseudo)/pseudo)
+    scores <- scores/scaler}
   }
   return(scores)
 }

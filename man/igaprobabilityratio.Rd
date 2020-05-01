@@ -4,7 +4,14 @@
 \alias{igaprobabilityratio}
 \title{IgA Probability Ratio}
 \usage{
-igaprobabilityratio(posabund, negabund, possize, negsize, pseudo = 1e-05)
+igaprobabilityratio(
+  posabund,
+  negabund,
+  possize,
+  negsize,
+  pseudo = 1e-05,
+  scaleratio = TRUE
+)
 }
 \arguments{
 \item{posabund}{Abundance of the bacteria in the IgA positive/high fraction (abundances should sum to 1 not as a \%).}
@@ -16,6 +23,8 @@ igaprobabilityratio(posabund, negabund, possize, negsize, pseudo = 1e-05)
 \item{negsize}{The fraction of events in the flow cytometer classed as IgA negative/low (as a decimal fraction not a \%).}
 
 \item{pseudo}{Pseudo count added to both the IgA positive and negative abundance values prior to calculation. Defaults to 1e-5. Recommend setting to minimum observed abundance in whole dataset.}
+
+\item{scaleratio}{Should probratio scores be scaled to the pseudocount. Default is TRUE.}
 }
 \description{
 This function calculates the ratio of the IgA positive fraction probability relative to the IgA negative fraction probability for a single taxa in a single sample.

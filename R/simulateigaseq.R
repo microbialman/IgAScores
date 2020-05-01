@@ -81,8 +81,8 @@ simulateigaseq <- function(igavalmeans=NULL,igavalsds=NULL,nosamples=10,sampling
     }else{
       changesp <- betweensp
     }
-    expgroup[g2size:ncol(speciesabunds)] <- 2
-    speciesabunds[changesp,g2size:ncol(speciesabunds)] <- speciesabunds[changesp,g2size:ncol(speciesabunds)] + (samplingdepth*(betweenper/100))
+    expgroup[(g2size+1):ncol(speciesabunds)] <- 2
+    speciesabunds[changesp,(g2size+1):ncol(speciesabunds)] <- speciesabunds[changesp,(g2size+1):ncol(speciesabunds)] + (samplingdepth*(betweenper/100))
     #convert back to even depth
     speciesabunds <- round(t(t(speciesabunds)/colSums(speciesabunds))*samplingdepth)
     #level off again
