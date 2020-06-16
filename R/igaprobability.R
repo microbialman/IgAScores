@@ -12,17 +12,21 @@
 #' @param withinabund Abundance of the bacteria in the IgA gate under investigation (can be calculated for either the pos/high or neg/low gating) (abundances should sum to 1 not as a \%).
 #' @param gatesize The fraction of events in the flow cytometer within the gate under investigation (as a decimal fraction not a \%).
 #' @param totabund Abundance of the bacteria in whole sample before sorting by IgA (abundances should sum to 1 not as a \%).
+#' @param nazeros Return NA if the within and tot abundances are both zero. Default is TRUE.
 #' @keywords iga, probability, Jackson, iga-seq
 #' @export
 #' @examples
 #' igaprobability(withinabund=0.5,gatesize=0.05,totabund=0.5)
 
-igaprobability <- function(withinabund,gatesize,totabund){
+igaprobability <- function(withinabund,gatesize,totabund,nazeros=TRUE){
   if(withinabund<0|gatesize<0|totabund<0){
     stop("Abundances and gate size must be greater than or equal to zero.")
   }
   if(withinabund>1|gatesize>1|totabund>1){
     stop("Abundances and gate size should be less than 1. Function expects values relative to 1 not 100 (i.e. not a percentage).")
+  }
+  if(withinabund==0&totabund==0&nazeros==TRUE){
+    return(NA)
   }
   nume <- withinabund*gatesize
   denom <- totabund

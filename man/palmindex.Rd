@@ -4,7 +4,7 @@
 \alias{palmindex}
 \title{Palm Index}
 \usage{
-palmindex(posabund, negabund, pseudo = 1e-05)
+palmindex(posabund, negabund, pseudo = 1e-05, nazeros = TRUE)
 }
 \arguments{
 \item{posabund}{Abundance of the bacteria in the IgA positive/high fraction.}
@@ -12,6 +12,8 @@ palmindex(posabund, negabund, pseudo = 1e-05)
 \item{negabund}{Abundance of the bacteria in the IgA negative/low fraction.}
 
 \item{pseudo}{Pseudo count added to the abundance of the IgA negative fraction if the bacteria is not in that fraction. Defaults to 1e-5. Recommend setting to minimum observed abundance in whole dataset.}
+
+\item{nazeros}{Return NA if the pos and neg abundances are both zero. Default is TRUE.}
 }
 \description{
 This function calculates the IgA Index as defined in Palm et al. 2014 (Cell, doi: 10.1016/j.cell.2014.08.006) for a single taxon in a single sample.

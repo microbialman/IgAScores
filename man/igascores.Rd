@@ -12,7 +12,8 @@ igascores(
   pseudo = NULL,
   totabunds = NULL,
   method = "probratio",
-  scaleratio = TRUE
+  scaleratio = TRUE,
+  nazeros = TRUE
 )
 }
 \arguments{
@@ -31,6 +32,8 @@ igascores(
 \item{method}{Method to use to score IgA binding. One of: "probratio","prob","kau","palm". Default is "probratio".}
 
 \item{scaleratio}{Should probratio scores be scaled to the pseudocount. Default is TRUE.}
+
+\item{nazeros}{Should taxa with zero abundance in both the posabunds and negabunds (posabunds and totabunds for prob method)  be scored as NA. Default is TRUE.}
 }
 \description{
 This function enables calculation of a variety of different indicies for scoring IgA binding to taxa in IgA-Seq experiments.

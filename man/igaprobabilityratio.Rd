@@ -10,7 +10,8 @@ igaprobabilityratio(
   possize,
   negsize,
   pseudo = 1e-05,
-  scaleratio = TRUE
+  scaleratio = TRUE,
+  nazeros = TRUE
 )
 }
 \arguments{
@@ -25,6 +26,8 @@ igaprobabilityratio(
 \item{pseudo}{Pseudo count added to both the IgA positive and negative abundance values prior to calculation. Defaults to 1e-5. Recommend setting to minimum observed abundance in whole dataset.}
 
 \item{scaleratio}{Should probratio scores be scaled to the pseudocount. Default is TRUE.}
+
+\item{nazeros}{Return NA if the pos and neg abundances are both zero. Default is TRUE.}
 }
 \description{
 This function calculates the ratio of the IgA positive fraction probability relative to the IgA negative fraction probability for a single taxa in a single sample.

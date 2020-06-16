@@ -23,10 +23,11 @@
 #' @param totabunds A dataframe of taxa abundances in the whole/initial samples. Samples as columns and taxa as rows, column and row names must match across abundance tables.
 #' @param method Method to use to score IgA binding. One of: "probratio","prob","kau","palm". Default is "probratio".
 #' @param scaleratio Should probratio scores be scaled to the pseudocount. Default is TRUE.
+#' @param nazeros Should taxa with zero abundance in both the posabunds and negabunds (posabunds and totabunds for prob method)  be scored as NA. Default is TRUE.
 #' @keywords iga, score, Kau, Palm, Jackson, index, ratio, probability, experiment, iga-seq
 #' @export
 
-igascores <- function(posabunds=NULL,negabunds=NULL,possizes=NULL,negsizes=NULL,pseudo=NULL,totabunds=NULL, method="probratio", scaleratio=TRUE){
+igascores <- function(posabunds=NULL,negabunds=NULL,possizes=NULL,negsizes=NULL,pseudo=NULL,totabunds=NULL, method="probratio", scaleratio=TRUE, nazeros=TRUE){
   methods <- c("probratio","prob","kau","palm")
   if(!method%in%methods){
     stop(paste0(method," is not a valid method."))
@@ -111,6 +112,16 @@ igascores <- function(posabunds=NULL,negabunds=NULL,possizes=NULL,negsizes=NULL,
     scaler <- log2((1+pseudo)/pseudo)
     scores <- scores/scaler}
   }
+
+  ##Convert scores to NA where no abundance detected
+  if(nazeros==TRUE){
+    if(method=="prob"){
+     scores[totabunds==0&withinabunds==0]=NA
+    }else{
+      scores[posabunds==0&negabunds==0]=NA
+    }
+  }
+
   return(scores)
 }
 

@@ -4,7 +4,7 @@
 \alias{igaprobability}
 \title{IgA Probability}
 \usage{
-igaprobability(withinabund, gatesize, totabund)
+igaprobability(withinabund, gatesize, totabund, nazeros = TRUE)
 }
 \arguments{
 \item{withinabund}{Abundance of the bacteria in the IgA gate under investigation (can be calculated for either the pos/high or neg/low gating) (abundances should sum to 1 not as a \%).}
@@ -12,6 +12,8 @@ igaprobability(withinabund, gatesize, totabund)
 \item{gatesize}{The fraction of events in the flow cytometer within the gate under investigation (as a decimal fraction not a \%).}
 
 \item{totabund}{Abundance of the bacteria in whole sample before sorting by IgA (abundances should sum to 1 not as a \%).}
+
+\item{nazeros}{Return NA if the within and tot abundances are both zero. Default is TRUE.}
 }
 \description{
 This function calculates the conditional probability that at batceria will be sufficently bound/not bound to IgA to end up in a given IgA gate based on its taxonomy. Calculated on one taxa for one sample.
