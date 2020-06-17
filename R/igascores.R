@@ -83,19 +83,22 @@ igascores <- function(posabunds=NULL,negabunds=NULL,possizes=NULL,negsizes=NULL,
   #carry out calculations - methods specific for multiple samples/taxa (faster than calling the individual calculations within for loops)
   ##palm
   if(method=="palm"){
-    negabunds[negabunds==0] <- negabunds[negabunds==0]+pseudo
-    scores <- posabunds/negabunds
+    nabunds <- negabunds
+    nabunds[nabunds==0] <- nabunds[nabunds==0]+pseudo
+    scores <- posabunds/nabunds
   }
+
   ##kau
-  else if(method=="kau"){
-    posabunds <- posabunds+pseudo
-    negabunds <- negabunds+pseudo
-    nume <- log(posabunds)-log(negabunds)
-    denom <- log(posabunds)+log(negabunds)
+  if(method=="kau"){
+    pabunds <- posabunds+pseudo
+    nabunds <- negabunds+pseudo
+    nume <- log(pabunds)-log(nabunds)
+    denom <- log(pabunds)+log(nabunds)
     scores <- -(nume/denom)
   }
+
   ##prob
-  else if(method=="prob"){
+  if(method=="prob"){
     nume <- rowprod(withinabunds,gsizes)
     denom <- totabunds
     scores <- nume/denom
@@ -103,8 +106,9 @@ igascores <- function(posabunds=NULL,negabunds=NULL,possizes=NULL,negsizes=NULL,
     scores[is.na(scores)] <- NA
     scores[scores>1] <- 1
   }
+
   ##probratio - default
-  else if(method=="probratio"){
+  if(method=="probratio"){
     nume <- rowprod(posabunds,possizes)+pseudo
     denom <- rowprod(negabunds,negsizes)+pseudo
     scores <- log2(nume/denom)
