@@ -1,12 +1,20 @@
 Package: IgAScores
-Title: Calculate Various Indices to Score IgA Binding in IgA-Seq Experiments
+Title: Calculate indices to score taxon-level IgA binding in IgA-Seq experiments
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "Matthew",
            family = "Jackson",
            role = c("aut", "cre"),
            email = "matthew.jackson@kennedy.ox.ac.uk")
-Description: This package contains functions to calculate various different indices that have been used to score IgA binding to bacteria in IgA-Seq experiments. This includes the original ratio based techniques and more recent methods from this package, which utilise Bayes' theorem to account for starting abundances of taxa and provide scores more reflective of IgA specificity. The package contains individual functions for each method to calculate scores for a single sample and taxa and the function igascores() that calculates any of the scores table-wide (for multiple taxa and samples).
-License: GPL
+Description: This package contains functions to calculate various different indices that have been used to score IgA binding to bacteria in IgA-Seq experiments.
+  This includes the original Kau and Palm indices and more recent probability-based methods, which utilise Bayes' theorem to account for the relative abundances 
+  to accurately quantify the liklihood of IgA binding per taxon. The package contains individual functions for each method to calculate scores for a single 
+  sample and taxa and the function igascores() that calculates any of the scores table-wide (for multiple taxa and samples). Additionally there are functions 
+  for simulating IgA-Seq datasets and example data from the IgAScores publication.
+Depends: R (>= 3.5.0)
+VignetteBuilder: knitr
+License: GPL-3
 Encoding: UTF-8
-RoxygenNote: 6.1.99.9001
+RoxygenNote: 7.1.1
+Suggests: 
+    knitr

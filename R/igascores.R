@@ -10,7 +10,7 @@
 #'
 #' \itemize{
 #' \item probratio - equivalent to igaprobabilityratio() - requires two seperate dataframes with iga positive abundances and iga negative abundances, two vectors with the sizes of the iga postive and negative gates per sample, and a pseudo count
-#' \item prob - equivalent to igaprobability() - requires a dataframe with iga pos or neg fraction abundances, a vector of iga pos or neg gate size per sample, and a dataframe of taxa abudnances in the whole/inital samples
+#' \item prob - equivalent to igaprobability() - requires a dataframe with iga pos or neg fraction abundances, a vector of iga pos or neg gate size per sample, and a dataframe of taxa abudnances in the presort samples
 #' \item kau - equivalent to kauindex() - requires two seperate dataframes with iga positive abundances and iga negative abundances, and a pseudo count
 #' \item palm - equivalent to palmindex() - requires two seperate dataframes with iga positive abundances and iga negative abundances, and a pseudo count
 #' }
@@ -20,14 +20,27 @@
 #' @param pseudo The pseudo count to be used in scores. Default is 1e-5. Recommend setting to minimum observed abundance.
 #' @param possizes A named vector containing the fraction of events in the IgA postive gate for each sample, with sample names matching abundance dataframes.
 #' @param negsizes A named vector containing the fraction of events in the IgA negative gate for each sample, with sample names matching abundance dataframes.
-#' @param totabunds A dataframe of taxa abundances in the whole/initial samples. Samples as columns and taxa as rows, column and row names must match across abundance tables.
+#' @param presortabunds A dataframe of taxa abundances in the whole/initial samples. Samples as columns and taxa as rows, column and row names must match across abundance tables.
 #' @param method Method to use to score IgA binding. One of: "probratio","prob","kau","palm". Default is "probratio".
 #' @param scaleratio Should probratio scores be scaled to the pseudocount. Default is TRUE.
-#' @param nazeros Should taxa with zero abundance in both the posabunds and negabunds (posabunds and totabunds for prob method)  be scored as NA. Default is TRUE.
+#' @param nazeros Should taxa with zero abundance in both the posabunds and negabunds (posabunds and presortabunds for prob method)  be scored as NA. Default is TRUE.
 #' @keywords iga, score, Kau, Palm, Jackson, index, ratio, probability, experiment, iga-seq
 #' @export
+#' @examples
+#' pab <- data.frame(Samp1=c(0.01,0.02,0.03),Samp2=c(0.05,0.02,0.04))
+#' rownames(pab) <- c("Taxon1","Taxon2","Taxon3")
+#' nab <- data.frame(Samp1=c(0.08,0.2,0.11),Samp2=c(0.05,0.0,0.07))
+#' rownames(nab) <- c("Taxon1","Taxon2","Taxon3")
+#' ps <- c(0.04,0.1)
+#' ns <- c(0.08,0.4)
+#' preab <- data.frame(Samp1=c(0.1,0.3,0.2),Samp2=c(0.15,0.05,0.2))
+#' rownames(preab) <- c("Taxon1","Taxon2","Taxon3")
+#' igascores(posabunds=pab,negabunds=nab, possizes=ps, negsizes=ns,pseudo=0.009)
+#' igascores(posabunds=pab, possizes=ps, presortabunds=preab, method="prob")
+#' igascores(posabunds=pab, negabunds=nab, pseudo=0.009, method="palm")
+#' igascores(posabunds=pab, negabunds=nab, pseudo=0.009, method="kau")
 
-igascores <- function(posabunds=NULL,negabunds=NULL,possizes=NULL,negsizes=NULL,pseudo=NULL,totabunds=NULL, method="probratio", scaleratio=TRUE, nazeros=TRUE){
+igascores <- function(posabunds=NULL,negabunds=NULL,possizes=NULL,negsizes=NULL,pseudo=NULL,presortabunds=NULL, method="probratio", scaleratio=TRUE, nazeros=TRUE){
   methods <- c("probratio","prob","kau","palm")
   if(!method%in%methods){
     stop(paste0(method," is not a valid method."))
@@ -74,10 +87,10 @@ igascores <- function(posabunds=NULL,negabunds=NULL,possizes=NULL,negsizes=NULL,
     else{
       stop("Must specify either posabunds and possizes or negabunds and negsizes for prob method.")
     }
-    if(is.null(totabunds)){
-      stop("prob methods requires a total abundance table, specify totabunds.")
+    if(is.null(presortabunds)){
+      stop("prob methods requires a total abundance table, specify presortabunds.")
     }
-    checktabs(withinabunds,totabunds)
+    checktabs(withinabunds,presortabunds)
   }
 
   #carry out calculations - methods specific for multiple samples/taxa (faster than calling the individual calculations within for loops)
@@ -100,7 +113,7 @@ igascores <- function(posabunds=NULL,negabunds=NULL,possizes=NULL,negsizes=NULL,
   ##prob
   if(method=="prob"){
     nume <- rowprod(withinabunds,gsizes)
-    denom <- totabunds
+    denom <- presortabunds
     scores <- nume/denom
     #make NaN to NA
     scores[is.na(scores)] <- NA
@@ -120,7 +133,7 @@ igascores <- function(posabunds=NULL,negabunds=NULL,possizes=NULL,negsizes=NULL,
   ##Convert scores to NA where no abundance detected
   if(nazeros==TRUE){
     if(method=="prob"){
-     scores[totabunds==0&withinabunds==0]=NA
+     scores[presortabunds==0&withinabunds==0]=NA
     }else{
       scores[posabunds==0&negabunds==0]=NA
     }

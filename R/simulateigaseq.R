@@ -117,18 +117,20 @@ simulateigaseq <- function(igavalmeans=NULL,igavalsds=NULL,nosamples=10,sampling
   possizes <- colSums(poscounts)/colSums(speciesabunds)
   negsizes <- colSums(negcounts)/colSums(speciesabunds)
 
-  #return: the whole counts table, the pos counts, the neg counts (and relative abundance equivalents), the pos fraction sizes, the neg fraction sizes, and the IgA binding table (for plotting density), as well as the input variables
-  returnlist <- list(wholecounts=speciesabunds, wholeabunds=relabund(speciesabunds), poscounts=poscounts, posabunds=relabund(poscounts), negcounts=negcounts, negabunds=relabund(negcounts), possizes=possizes, negsizes=negsizes, igabinding=longigabinding, igavalmeans=igavalmeans, igavalsds=igavalsds, posthresh=posthresh, negthresh=negthresh, expgroup=expgroup, expspecies=changesp)
+  #return: the presort counts table, the pos counts, the neg counts (and relative abundance equivalents), the pos fraction sizes, the neg fraction sizes, and the IgA binding table (for plotting density), as well as the input variables
+  returnlist <- list(presortcounts=speciesabunds, presortabunds=relabund(speciesabunds), poscounts=poscounts, posabunds=relabund(poscounts), negcounts=negcounts, negabunds=relabund(negcounts), possizes=possizes, negsizes=negsizes, igabinding=longigabinding, igavalmeans=igavalmeans, igavalsds=igavalsds, posthresh=posthresh, negthresh=negthresh, expgroup=expgroup, expspecies=changesp)
   return(returnlist)
 }
 
 
 
 #function to filter IgA counts on intensity threshold
-filterigascorelong <- function(longtab,threshold,direction,wholeab){
+filterigascorelong <- function(longtab,threshold,direction,presortab){
   if(direction=="over"){filtlong <- longtab[longtab$IgAValue>threshold,]}
   if(direction=="under"){filtlong <- longtab[longtab$IgAValue<threshold,]}
   filtwide <- table(filtlong$Species,filtlong$Sample)
-  filtwide <- as.data.frame.matrix(filtwide[rownames(wholeab),colnames(wholeab)])
+  filtwide <- as.data.frame.matrix(filtwide[match(rownames(presortab),rownames(filtwide)),colnames(presortab)])
+  filtwide[is.na(filtwide)] <- 0
+  rownames(filtwide) <- rownames(presortab)
   return(filtwide)
 }

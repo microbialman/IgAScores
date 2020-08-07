@@ -14,6 +14,11 @@ relabund(counttable, percentage = FALSE)
 \description{
 This function converts values in a dataframe to a fraction/percentage of the sum of their column.
 }
+\examples{
+taxcounts <- data.frame(Sample1=c(1,2,10,10),Sample2=c(3,10,5,1))
+rownames(taxcounts) <- c("Taxon1","Taxon2","Taxon3","Taxon4")
+relabund(taxcounts)
+}
 \keyword{abundance,}
 \keyword{microbiome}
 \keyword{normalisation,}

@@ -4,7 +4,9 @@
 \name{oligoMeta}
 \alias{oligoMeta}
 \title{Metadata for the OligoMM12-Colitis experiment used as an example in the IgAScores package}
-\format{An object of class \code{"tibble"}.}
+\format{
+An object of class \code{"tibble"}.
+}
 \usage{
 data(oligoMeta)
 }

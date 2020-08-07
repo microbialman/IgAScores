@@ -1,0 +1,157 @@
+---
+title: "The IgAScores Package"
+author: "Matthew Jackson"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{The IgAScores Package}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+The IgAScores package provides functions to calculate IgA binding indices from IgA-Seq data sets.
+
+In IgA-Seq, bacteria within a sample are stained with an anti-IgA antibody and sorted into bound (IgA+) and unbound (IgA-) fractions.
+The taxonomy of these bacteria is then profiled using 16S rRNA gene sequencing of DNA amplified from the sorted fractions.
+The functions in this package generate scores of relative binding per taxon per sample from the resulting data.
+
+We recommend using the Probability Ratio to score IgA binding but make other scoring approaches available for comparison. See the [IgAScores paper](https://github.com/microbialman/IgAScores) for a detailed consideration of IgA scoring methods.
+
+## Input data
+
+The different scoring approaches require different inputs these can include:
+
++ The abundance of the taxon in the IgA+ fraction - **IgA+ abundance**
++ The abundance of the taxon in the IgA- fraction - **IgA- abundance**
++ The fraction of all bacteria in the sample that are sorted into the IgA+ fraction - **IgA+ size**
++ The fraction of all bacteria in the sample that are sorted into the IgA- fraction - **IgA- size**
++ The abundance of the taxon in the sample pre-sorting - **Presort abundance**
++ A pseudo count to add to zero values - **Pseudo**
+
+#### Example data
+
+Here we generate some dummy data to demonstrate the IgAScores functions.
+
+```{r dummy_data}
+#load in IgAScores
+library(IgAScores)
+
+#dataframes with counts for the bacterial taxa in the IgA+ and IgA- fractions and presort sample, as would be produced by 16S rRNA appraoches such as DADA2
+igapos <- data.frame(Sample1=c(100,0,1,2,10),Sample2=c(110,0,11,42,50),Sample3=c(140,60,10,3,0))
+iganeg <- data.frame(Sample1=c(200,0,40,20,4),Sample2=c(10,30,110,2,5),Sample3=c(30,20,0,123,20))
+presort <- data.frame(Sample1=c(150,10,50,30,5),Sample2=c(100,30,115,20,10),Sample3=c(30,20,10,100,25))
+
+taxnames <- c("Taxon1","Taxon2","Taxon3","Taxon4","Taxon5")
+rownames(igapos) <- taxnames
+rownames(iganeg) <- taxnames
+rownames(presort) <- taxnames
+
+#convert the counts to relative abundances using the included helper function
+igapos <- relabund(igapos)
+iganeg <- relabund(iganeg)
+presort <- relabund(presort)
+
+#iga+ and iga- fraction sizes per sample (fraction, if a percentage divide by 100)
+possize <- c(Sample1=0.04,Sample2=0.05,Sample3=0.03)
+negsize <- c(Sample1=0.54,Sample2=0.47,Sample3=0.33)
+
+#set a pseudo count for handling zero values in some scoring methods
+#this should be of a similar value of the minimum non-zero observed value (e.g. if minum values is 0.007 use 0.001)
+pseudo <- 0.001
+
+```
+
+## Calculating scores for all taxa and samples in an experiment
+
+To calculate IgA scores across all of the taxa and samples in an experiment the *igascores()* function should be used.
+This enables calculation of all the different scores via the *method* argument, the requirements for each of the scores is shown below.
+
+```{r reqs, echo=F}
+pr <- c("Probability Ratio","probratio","IgA+ abundance, IgA- abundance, IgA+ size, IgA- size, pseudo")
+pp <- c("IgA+ Probability","prob","IgA+ abundance, Presort abundance, IgA+ size")
+pa <- c("Palm index","palm","IgA+ abundance, IgA- abundance, pseudo")
+ka <- c("Kau index","kau","IgA+ abundance, IgA- abundance, pseudo")
+comb <- rbind(pr,pp,pa,ka)
+colnames(comb) <- c("Score","Method name","Inputs required")
+
+knitr::kable(comb, row.names = F)
+```
+
+For example, calculating the **Probability Ratio** on the example data:
+
+```{r probrat}
+#default method is probratio
+prscores <- igascores(posabunds = igapos, negabunds = iganeg, 
+                      possizes = possize, negsizes = negsize, 
+                      pseudo = pseudo)
+
+print(prscores)
+
+```
+
+Note the NA in Sample 1's estimate for Taxon 2. This is because the taxa was not observed in either of the IgA+ or IgA- fractions.
+Adding a pseudo count to both would create an artificial estimate that might actually be higher than real observed values, thus IgAScores won't score values absent in both fractions.
+This behavior can be controlled using the *nazeros* parameter, but it is recommended to leave this as default. Similarly, the Probability Ratio has a *scaleratio* parameter, this scales the values between -1 and 1 by adjusting for the size of the pseudo count, again it is recommended to leave this on by default.
+
+An example for the *IgA+ Probability*
+
+```{r pp}
+ppscores <- igascores(posabunds = igapos, possizes = possize, presortabunds = presort, method="prob")
+
+print(ppscores)
+```
+
+The IgA+ Probability is a direct estimate of the probability a bacteria will be bound to IgA and in the IgA+ fraction given that it belongs to the given taxon.
+Note that the opposite (the IgA- Probability) can be calculated by swapping out the IgA+ abundance and IgA+ size for the IgA- abundance and IgA- size.
+
+Examples for the **Kau** and **Palm** indices:
+
+```{r kp}
+kscores <- igascores(posabunds = igapos, negabunds = iganeg, pseudo=pseudo, method="kau")
+print(kscores)
+
+pscores <-  igascores(posabunds = igapos, negabunds = iganeg, pseudo=pseudo, method="palm")
+print(pscores)
+```
+
+These methods implement the scores described by [Kau et al.](https://dx.doi.org/10.1126%2Fscitranslmed.aaa4877) and [Palm et al.](https://doi.org/10.1016/j.cell.2014.08.006) respectively.
+
+## Calculating scores for a single taxon from a single sample
+
+For most experimental purposes the *igascores()* function will be more useful, and allows calculation of scores for all taxa across all samples in an experiment.
+But if a single taxon and sample are to be scored, such as for custom wrapping of the functions in other scripts, individual functions are available for the four methods:
+
+```{r singlefuns}
+igaprobabilityratio(posabund = igapos[1,1], negabund = iganeg[1,1], possize = possize[1], negsize = negsize[1], pseudo = pseudo)
+igaprobability(withinabund = igapos[1,1], presortabund = presort[1,1], gatesize = possize[1])
+kauindex(posabund = igapos[1,1], negabund = iganeg[1,1], pseudo = pseudo)
+palmindex(posabund = igapos[1,1], negabund = iganeg[1,1], pseudo = pseudo)
+
+```
+
+## Simulating IgA-Seq data
+
+Simulated IgA-Seq data is used to validate scoring approaches in the [IgAScores paper](https://github.com/microbialman/IgAScores).
+This can be replicated using the *simulateigaseq()* function. This has several parameters for customising the simulation, which are detailed in the functions documentation.
+The basic data returned by the simulation are shown below, these can then be used to calculate indices using the functions above.
+
+```{r sim}
+#run the simulation with defaults
+simdata <- simulateigaseq()
+
+summary(simdata)
+```
+
+## Additional examples
+
+Full analysis scripts demonstrating the use of IgAScores and how to compare IgA binding scores between different experimental conditions can be found in the [GitHub repository](https://github.com/microbialman/IgAScoresAnalyses) containing the analyses from the paper.
+
+
+

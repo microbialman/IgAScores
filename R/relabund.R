@@ -6,6 +6,10 @@
 #' @param percentage Should values be returned as a percentage? i.e multiplied by 100. Default is FALSE (as required for most IgA scoring approaches).
 #' @keywords abundance, normalisation, microbiome
 #' @export
+#' @examples
+#' taxcounts <- data.frame(Sample1=c(1,2,10,10),Sample2=c(3,10,5,1))
+#' rownames(taxcounts) <- c("Taxon1","Taxon2","Taxon3","Taxon4")
+#' relabund(taxcounts)
 
 relabund <- function(counttable,percentage=FALSE){
   reltab <- data.frame(t(t(counttable)/colSums(counttable)))
