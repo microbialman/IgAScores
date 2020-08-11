@@ -11,7 +11,7 @@ An object of class \code{"tibble"}.
 data(oligoMeta)
 }
 \description{
-Metadata for an experiment where mice with a defined gut microbiota (OligoMM12) were either given *Helicobacter hepaticus* and IL10R antibody or the anitbody alone (the first developing colitis).
+Metadata for an experiment where mice with a defined gut microbiota (OligoMM12) were either given *Helicobacter hepaticus* and IL10R antibody or the antibody alone (the first developing colitis).
 These data accompany the species level counts in oligoSpecies and also include a negative extraction control. A subset of the combined condition were not properly colonised by *H.hepaticus* and excluded from later analyses.
 }
 \examples{
@@ -20,9 +20,9 @@ data(oligoMeta)
 \references{
 To come...
 }
-\keyword{ail10r,}
-\keyword{colitis,}
-\keyword{dataset,}
+\keyword{ail10r}
+\keyword{colitis}
+\keyword{dataset}
 \keyword{helicobacter}
-\keyword{metadata,}
-\keyword{oligoMM12,}
+\keyword{metadata}
+\keyword{oligoMM12}

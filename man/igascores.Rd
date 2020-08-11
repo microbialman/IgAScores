@@ -21,7 +21,7 @@ igascores(
 
 \item{negabunds}{A dataframe of taxa abundances in the negative/low IgA gate samples. Samples as columns and taxa as rows, column and row names must match across abundance tables.}
 
-\item{possizes}{A named vector containing the fraction of events in the IgA postive gate for each sample, with sample names matching abundance dataframes.}
+\item{possizes}{A named vector containing the fraction of events in the IgA positive gate for each sample, with sample names matching abundance dataframes.}
 
 \item{negsizes}{A named vector containing the fraction of events in the IgA negative gate for each sample, with sample names matching abundance dataframes.}
 
@@ -31,12 +31,12 @@ igascores(
 
 \item{method}{Method to use to score IgA binding. One of: "probratio","prob","kau","palm". Default is "probratio".}
 
-\item{scaleratio}{Should probratio scores be scaled to the pseudocount. Default is TRUE.}
+\item{scaleratio}{Should probratio scores be scaled to the pseudo count. Default is TRUE.}
 
 \item{nazeros}{Should taxa with zero abundance in both the posabunds and negabunds (posabunds and presortabunds for prob method)  be scored as NA. Default is TRUE.}
 }
 \description{
-This function enables calculation of a variety of different indicies for scoring IgA binding to taxa in IgA-Seq experiments.
+This function enables calculation of a variety of different indices for scoring IgA binding to taxa in IgA-Seq experiments.
 It is designed to be called on dataframes of abundance values, allowing easy calculation of scores across multiple taxa and samples.
 The igaprobabilityratio(), igaprobability(), kauindex() and palmindex() functions can be used to calculate scores for one taxa and one sample.
 
@@ -44,10 +44,10 @@ Scoring method can be chosen by specifying the method parameter as one of: "prob
 Each method requires different inputs as detailed below:
 
 \itemize{
-\item probratio - equivalent to igaprobabilityratio() - requires two seperate dataframes with iga positive abundances and iga negative abundances, two vectors with the sizes of the iga postive and negative gates per sample, and a pseudo count
-\item prob - equivalent to igaprobability() - requires a dataframe with iga pos or neg fraction abundances, a vector of iga pos or neg gate size per sample, and a dataframe of taxa abudnances in the presort samples
-\item kau - equivalent to kauindex() - requires two seperate dataframes with iga positive abundances and iga negative abundances, and a pseudo count
-\item palm - equivalent to palmindex() - requires two seperate dataframes with iga positive abundances and iga negative abundances, and a pseudo count
+\item probratio - equivalent to igaprobabilityratio() - requires two separate dataframes with iga positive abundances and iga negative abundances, two vectors with the sizes of the iga postive and negative gates per sample, and a pseudo count
+\item prob - equivalent to igaprobability() - requires a dataframe with iga pos or neg fraction abundances, a vector of iga pos or neg gate size per sample, and a dataframe of taxa abundances in the presort samples
+\item kau - equivalent to kauindex() - requires two separate dataframes with iga positive abundances and iga negative abundances, and a pseudo count
+\item palm - equivalent to palmindex() - requires two separate dataframes with iga positive abundances and iga negative abundances, and a pseudo count
 }
 }
 \examples{
@@ -64,13 +64,12 @@ igascores(posabunds=pab, possizes=ps, presortabunds=preab, method="prob")
 igascores(posabunds=pab, negabunds=nab, pseudo=0.009, method="palm")
 igascores(posabunds=pab, negabunds=nab, pseudo=0.009, method="kau")
 }
-\keyword{Jackson,}
-\keyword{Kau,}
-\keyword{Palm,}
-\keyword{experiment,}
-\keyword{iga,}
+\keyword{Kau}
+\keyword{Palm}
+\keyword{experiment}
+\keyword{iga}
 \keyword{iga-seq}
-\keyword{index,}
-\keyword{probability,}
-\keyword{ratio,}
-\keyword{score,}
+\keyword{index}
+\keyword{probability}
+\keyword{ratio}
+\keyword{score}

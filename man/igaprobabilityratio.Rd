@@ -19,26 +19,25 @@ igaprobabilityratio(
 
 \item{negabund}{Abundance of the bacteria in the IgA negative/low fraction (abundances should sum to 1 not as a \%).}
 
-\item{possize}{The fraction of events in the flow cytometer classed as IgA postive/high (as a decimal fraction not a \%).}
+\item{possize}{The fraction of events in the flow cytometer classed as IgA positive/high (as a decimal fraction not a \%).}
 
 \item{negsize}{The fraction of events in the flow cytometer classed as IgA negative/low (as a decimal fraction not a \%).}
 
 \item{pseudo}{Pseudo count added to both the IgA positive and negative abundance values prior to calculation. Defaults to 1e-5. Recommend setting to minimum observed abundance in whole dataset.}
 
-\item{scaleratio}{Should probratio scores be scaled to the pseudocount. Default is TRUE.}
+\item{scaleratio}{Should probratio scores be scaled to the pseudo count. Default is TRUE.}
 
 \item{nazeros}{Return NA if the pos and neg abundances are both zero. Default is TRUE.}
 }
 \description{
 This function calculates the ratio of the IgA positive fraction probability relative to the IgA negative fraction probability for a single taxa in a single sample.
 These probabilities can individually be calculated using the igaprobability() function. As both calculations have the whole fraction taxon abundance as a denominator it cancels.
-This means the IgA probiability ratio can be caluclated without this information.
+This means the IgA probability ratio can be calculated without this information.
 }
 \examples{
 igaprobabilityratio(posabund=0.2,negabund=0.05,possize=0.05,negsize=0.6,pseudo=0.0002)
 }
-\keyword{Jackson,}
-\keyword{iga,}
+\keyword{iga}
 \keyword{iga-seq}
-\keyword{probability,}
-\keyword{ratio,}
+\keyword{probability}
+\keyword{ratio}

@@ -1,25 +1,26 @@
 ## IgAScores
 
-This repository contains the IgAScores R package, used to calculate taxon-level IgA binding scores from IgA-Seq data.
-For a detailed consideration of the methods for scoring IgA-Seq data, see the associated [paper](linktopaper).
+The IgAScores package is used to calculate taxon-level IgA binding scores from IgA-Seq data.
+It also includes several helper functions for managing microbiome data and simulating IgA-Seq datasets for method testing. 
+
+For a detailed consideration of the methods that are used for scoring IgA-Seq data, see the associated paper (doi coming soon!).
 
 ### Install
 
 This package can be installed from GitHub using [devtools](https://github.com/r-lib/devtools).
 
 ```r
-if (!require(devtools)) install.packages('devtools')
-install_github("microbialman/IgAScores")
+if (!require(devtools)){install.packages('devtools')}
+install_github("microbialman/IgAScores", build_vignettes = TRUE)
 ```
 
 ### Running
 
-A detailed overview of how to run the various functions within IgAScores can be found in the R vignette.
+A detailed overview of how to run the various functions within IgAScores can be found in the R vignette: `vignette("IgAScores")`
 
 A brief summary of the main *igascores()* function is given below:
 
 ```r
-
 #load in IgAScores
 library(IgAScores)
 
@@ -43,7 +44,7 @@ negsize <- c(Sample1=0.54,Sample2=0.47,Sample3=0.33)
 #this should be of a similar value of the minimum non-zero observed value (e.g. if minum values is 0.007 use 0.001)
 pseudo <- 0.001
 
-#default method is probratio, additional methods available are prob, kau and palm.
+#default method is the probability ratio "probratio"", additional methods available are "prob"", "kau"" and "palm".
 prscores <- igascores(posabunds = igapos, negabunds = iganeg, 
                       possizes = possize, negsizes = negsize, 
                       pseudo = pseudo)

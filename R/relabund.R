@@ -4,7 +4,7 @@
 #'
 #' @param counttable Dataframe with rows as observations and columns as samples.
 #' @param percentage Should values be returned as a percentage? i.e multiplied by 100. Default is FALSE (as required for most IgA scoring approaches).
-#' @keywords abundance, normalisation, microbiome
+#' @keywords abundance normalisation microbiome relative
 #' @export
 #' @examples
 #' taxcounts <- data.frame(Sample1=c(1,2,10,10),Sample2=c(3,10,5,1))

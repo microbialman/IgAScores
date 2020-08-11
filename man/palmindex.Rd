@@ -21,8 +21,8 @@ This function calculates the IgA Index as defined in Palm et al. 2014 (Cell, doi
 \examples{
 palmindex(posabund=0.1,negabund=0.2,pseudo=0.0002)
 }
-\keyword{Palm,}
-\keyword{coating,}
-\keyword{iga,}
+\keyword{Palm}
+\keyword{coating}
+\keyword{iga}
 \keyword{iga-seq}
-\keyword{index,}
+\keyword{index}

@@ -11,7 +11,7 @@ An object of class \code{"tibble"}.
 data(oligoSpecies)
 }
 \description{
-Speciel level counts for an experiment where mice with a defined gut microbiota (OligoMM12) were either given *Helicobacter hepaticus* and IL10R antibody or the anitbody alone (the first developing colitis).
+Species level counts for an experiment where mice with a defined gut microbiota (OligoMM12) were either given *Helicobacter hepaticus* and IL10R antibody or the antibody alone (the first developing colitis).
 Metadata for this experiment can be found in oligoMeta. Counts were generated from ASVs from the V4 region of the 16S rRNA gene processed using DADA2 and aligned to the *"RefSeq-RDP16S_v2_May2018.fa.gz"* database.
 }
 \examples{
@@ -20,11 +20,11 @@ data(oligoSpecies)
 \references{
 To come...
 }
-\keyword{ail10r,}
-\keyword{colitis,}
+\keyword{ail10r}
+\keyword{colitis}
 \keyword{counts}
-\keyword{dataset,}
-\keyword{helicobacter,}
-\keyword{iga-seq,}
-\keyword{oligoMM12,}
-\keyword{species,}
+\keyword{dataset}
+\keyword{helicobacter}
+\keyword{iga-seq}
+\keyword{oligoMM12}
+\keyword{species}

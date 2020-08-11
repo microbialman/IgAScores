@@ -7,17 +7,17 @@
 taxnamesplit(names, level = "genus")
 }
 \arguments{
-\item{names}{Name string/ vecotr of name strings}
+\item{names}{Name string/ vector of name strings}
 
-\item{level}{taxnomic level to split at must be in range phylum to species (default is genus).}
+\item{level}{taxonomic level to split at must be in range phylum to species (default is genus).}
 }
 \description{
-This function splits a full taoxnomic lineage as a given level and returns the latter half.
+This function splits a full taxonomic lineage as a given level and returns the latter half.
 }
 \examples{
 taxnamesplit("p__Bacteroidetes;c__Bacteroidia","class")
 }
-\keyword{microbioem,}
-\keyword{name,}
+\keyword{microbiome}
+\keyword{name}
 \keyword{split}
-\keyword{taxonomy,}
+\keyword{taxonomy}

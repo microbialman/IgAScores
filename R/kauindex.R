@@ -6,7 +6,7 @@
 #' @param negabund The abundance of the bacteria in the IgA negative/low fraction (abundances should sum to 1 not as a \%).
 #' @param pseudo Pseudo count added to both the IgA positive and negative fraction values prior to calculation. Defaults to 1e-5. Recommend setting to minimum observed abundance in whole dataset.
 #' @param nazeros Return NA if the pos and neg abundances are both zero. Default is TRUE.
-#' @keywords iga, index, Kau, iga-seq
+#' @keywords iga index Kau iga-seq
 #' @export
 #' @examples
 #' kauindex(posabund=0.1,negabund=0.2,pseudo=0.0002)

@@ -21,7 +21,7 @@ This function calculates the IgA Index as defined in Kau et al. 2015 (Sci. Trans
 \examples{
 kauindex(posabund=0.1,negabund=0.2,pseudo=0.0002)
 }
-\keyword{Kau,}
-\keyword{iga,}
+\keyword{Kau}
+\keyword{iga}
 \keyword{iga-seq}
-\keyword{index,}
+\keyword{index}

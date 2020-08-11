@@ -1,7 +1,7 @@
 #' Generate various scores for IgA binding in IgA-Seq experiments
 #'
 #' @description
-#' This function enables calculation of a variety of different indicies for scoring IgA binding to taxa in IgA-Seq experiments.
+#' This function enables calculation of a variety of different indices for scoring IgA binding to taxa in IgA-Seq experiments.
 #' It is designed to be called on dataframes of abundance values, allowing easy calculation of scores across multiple taxa and samples.
 #' The igaprobabilityratio(), igaprobability(), kauindex() and palmindex() functions can be used to calculate scores for one taxa and one sample.
 #'
@@ -9,22 +9,22 @@
 #' Each method requires different inputs as detailed below:
 #'
 #' \itemize{
-#' \item probratio - equivalent to igaprobabilityratio() - requires two seperate dataframes with iga positive abundances and iga negative abundances, two vectors with the sizes of the iga postive and negative gates per sample, and a pseudo count
-#' \item prob - equivalent to igaprobability() - requires a dataframe with iga pos or neg fraction abundances, a vector of iga pos or neg gate size per sample, and a dataframe of taxa abudnances in the presort samples
-#' \item kau - equivalent to kauindex() - requires two seperate dataframes with iga positive abundances and iga negative abundances, and a pseudo count
-#' \item palm - equivalent to palmindex() - requires two seperate dataframes with iga positive abundances and iga negative abundances, and a pseudo count
+#' \item probratio - equivalent to igaprobabilityratio() - requires two separate dataframes with iga positive abundances and iga negative abundances, two vectors with the sizes of the iga postive and negative gates per sample, and a pseudo count
+#' \item prob - equivalent to igaprobability() - requires a dataframe with iga pos or neg fraction abundances, a vector of iga pos or neg gate size per sample, and a dataframe of taxa abundances in the presort samples
+#' \item kau - equivalent to kauindex() - requires two separate dataframes with iga positive abundances and iga negative abundances, and a pseudo count
+#' \item palm - equivalent to palmindex() - requires two separate dataframes with iga positive abundances and iga negative abundances, and a pseudo count
 #' }
 #'
 #' @param posabunds A dataframe of taxa abundances in the positive/high IgA gate samples. Samples as columns and taxa as rows, column and row names must match across abundance tables.
 #' @param negabunds A dataframe of taxa abundances in the negative/low IgA gate samples. Samples as columns and taxa as rows, column and row names must match across abundance tables.
 #' @param pseudo The pseudo count to be used in scores. Default is 1e-5. Recommend setting to minimum observed abundance.
-#' @param possizes A named vector containing the fraction of events in the IgA postive gate for each sample, with sample names matching abundance dataframes.
+#' @param possizes A named vector containing the fraction of events in the IgA positive gate for each sample, with sample names matching abundance dataframes.
 #' @param negsizes A named vector containing the fraction of events in the IgA negative gate for each sample, with sample names matching abundance dataframes.
 #' @param presortabunds A dataframe of taxa abundances in the whole/initial samples. Samples as columns and taxa as rows, column and row names must match across abundance tables.
 #' @param method Method to use to score IgA binding. One of: "probratio","prob","kau","palm". Default is "probratio".
-#' @param scaleratio Should probratio scores be scaled to the pseudocount. Default is TRUE.
+#' @param scaleratio Should probratio scores be scaled to the pseudo count. Default is TRUE.
 #' @param nazeros Should taxa with zero abundance in both the posabunds and negabunds (posabunds and presortabunds for prob method)  be scored as NA. Default is TRUE.
-#' @keywords iga, score, Kau, Palm, Jackson, index, ratio, probability, experiment, iga-seq
+#' @keywords iga score Kau Palm index ratio probability experiment iga-seq
 #' @export
 #' @examples
 #' pab <- data.frame(Samp1=c(0.01,0.02,0.03),Samp2=c(0.05,0.02,0.04))
@@ -78,7 +78,7 @@ igascores <- function(posabunds=NULL,negabunds=NULL,possizes=NULL,negsizes=NULL,
       withinabunds <- posabunds
       gsizes <- possizes
       if(!is.null(negabunds)){
-        message("Positive and negative abundances supplied to prob method. Will return postive gate probabilities. Remove postive variables to calculate negative gate probabilities.")}
+        message("Positive and negative abundances supplied to prob method. Will return positive gate probabilities. Remove positive variables to calculate negative gate probabilities.")}
     }else if((!is.null(negabunds))&&(!is.null(negsizes))){
       checkvec(negabunds,negsizes)
       withinabunds <- negabunds

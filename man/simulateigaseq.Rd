@@ -26,21 +26,21 @@ simulateigaseq(
 
 \item{samplingdepth}{The number of bacteria to simulate in each sample. Defaults to 100000.}
 
-\item{posthresh}{The IgA value threshold above which a bacteria will be considered IgA positive. Defaults to 4 (which is reasonable with the other defaults). It is recommended to run a simulation twice to determine reasonble thresholds on the first go.}
+\item{posthresh}{The IgA value threshold above which a bacteria will be considered IgA positive. Defaults to 4 (which is reasonable with the other defaults). It is recommended to run a simulation twice to determine reasonable thresholds on the first go.}
 
-\item{negthresh}{The IgA value threshold below which a bacteria will be considered IgA negative. Defaults to 2 (which is reasonable with the other defaults). It is recommended to run a simulation twice to determine reasonble thresholds on the first go.}
+\item{negthresh}{The IgA value threshold below which a bacteria will be considered IgA negative. Defaults to 2 (which is reasonable with the other defaults). It is recommended to run a simulation twice to determine reasonable thresholds on the first go.}
 
 \item{seed}{Seed for random number generation. Has a default so must be changed to rerun simulations.}
 
-\item{betweengroups}{If TRUE this will modify starting abundaunced of half of the samples similarly (by adding betweenper\% of total counts to a single species) to simulate the case where there is an abundance shift without a change in IgA binding affinity. Defaults to FALSE.}
+\item{betweengroups}{If TRUE this will modify starting abundances of half of the samples similarly (by adding betweenper\% of total counts to a single species) to simulate the case where there is an abundance shift without a change in IgA binding affinity. Defaults to FALSE.}
 
 \item{betweenper}{Percentage of total counts to add to a species in the second group in the betweengroups mode.}
 
 \item{betweensp}{Species (by index) to increased in between groups simulation. Chosen at random if NULL (default).}
 }
 \description{
-This function will generate a simulated IgA-Seq data set starting from a list containing the mean (and standard devations) of IgA binding values expected for each species and cut-offs for defining the IgA postive and negative gates.
-The input is a vector giving the average IgA value of each species (any arbitrary value that will represent the relative level of IgA binding between the species, ensure SD and cut-offs are in the same mangitude).
+This function will generate a simulated IgA-Seq data set starting from a list containing the mean (and standard deviations) of IgA binding values expected for each species and cut-offs for defining the IgA positive and negative gates.
+The input is a vector giving the average IgA value of each species (any arbitrary value that will represent the relative level of IgA binding between the species, ensure SD and cut-offs are in the same magnitude).
 These values are treated as the means of a normal distribution of IgA binding values for each species.
 Species counts are generated on a log distribution for a given number of samples at an even depth.
 For each bacteria in each sample, an IgA binding value is then assigned by sampling from its species IgA value distribution.
@@ -54,6 +54,6 @@ dat <- simulateigaseq()
 dat <- simulateigaseq(c(0.1,1,10,15),rep(1,4),nosamples=10,posthresh=8,negthresh=4)
 }
 \keyword{benchmarking}
-\keyword{iga,}
-\keyword{iga-seq,}
-\keyword{simulation,}
+\keyword{iga}
+\keyword{iga-seq}
+\keyword{simulation}
