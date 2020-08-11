@@ -50,8 +50,7 @@ A second mode can also be used (by toggling betweengroups) that will introduce a
 Note: IgA values are simulated for each bacteria in each sample, setting the combination of the samplingdepth, number of species, and number of samples too high will slow the data generation.
 }
 \examples{
-dat <- simulateigaseq()
-dat <- simulateigaseq(c(0.1,1,10,15),rep(1,4),nosamples=10,posthresh=8,negthresh=4)
+dat <- simulateigaseq(c(0.1,1,10,15),rep(1,4),posthresh=8,negthresh=4,samplingdepth=100)
 }
 \keyword{benchmarking}
 \keyword{iga}

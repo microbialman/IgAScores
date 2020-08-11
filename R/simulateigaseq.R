@@ -26,8 +26,7 @@
 #' @importFrom stats rlnorm rnorm rexp
 #' @export
 #' @examples
-#' dat <- simulateigaseq()
-#' dat <- simulateigaseq(c(0.1,1,10,15),rep(1,4),nosamples=10,posthresh=8,negthresh=4)
+#' dat <- simulateigaseq(c(0.1,1,10,15),rep(1,4),posthresh=8,negthresh=4,samplingdepth=100)
 
 simulateigaseq <- function(igavalmeans=NULL,igavalsds=NULL,nosamples=10,samplingdepth=100000,posthresh=4,negthresh=2,seed=66,betweengroups=FALSE, betweenper=10, betweensp=NULL){
   #use seed as there is a lot of random generation
