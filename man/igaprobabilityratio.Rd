@@ -30,7 +30,7 @@ igaprobabilityratio(
 \item{nazeros}{Return NA if the pos and neg abundances are both zero. Default is TRUE.}
 }
 \description{
-This function calculates the ratio of the IgA positive fraction probability relative to the IgA negative fraction probability for a single taxa in a single sample.
+This function calculates the ratio of the immunoglobulin A (IgA) positive fraction probability relative to the IgA negative fraction probability for a single taxa in a single sample.
 These probabilities can individually be calculated using the igaprobability() function. As both calculations have the whole fraction taxon abundance as a denominator it cancels.
 This means the IgA probability ratio can be calculated without this information.
 }

@@ -16,7 +16,7 @@ igaprobability(withinabund, gatesize, presortabund, nazeros = TRUE)
 \item{nazeros}{Return NA if the within and tot abundances are both zero. Default is TRUE.}
 }
 \description{
-This function calculates the conditional probability that at bacteria will be sufficiently bound/not bound to IgA to end up in a given IgA gate based on its taxonomy. Calculated on one taxa for one sample.
+This function calculates the conditional probability that at bacteria will be sufficiently bound/not bound to immunoglobulin A (IgA) to end up in a given IgA gate based on its taxonomy. Calculated on one taxa for one sample.
 
 This uses Bayes' theorem assuming:
 \itemize{

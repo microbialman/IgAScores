@@ -39,8 +39,8 @@ simulateigaseq(
 \item{betweensp}{Species (by index) to increased in between groups simulation. Chosen at random if NULL (default).}
 }
 \description{
-This function will generate a simulated IgA-Seq data set starting from a list containing the mean (and standard deviations) of IgA binding values expected for each species and cut-offs for defining the IgA positive and negative gates.
-The input is a vector giving the average IgA value of each species (any arbitrary value that will represent the relative level of IgA binding between the species, ensure SD and cut-offs are in the same magnitude).
+This function will generate a simulated immunoglobulin A sequencing (IgA-Seq) data set starting from a list containing the mean (and standard deviations) of IgA binding values expected for each species and cut-offs for defining the IgA positive and negative gates.
+The input is a vector giving the average IgA value of each species (any arbitrary value that will represent the relative level of IgA binding between the species, ensure standard deviation and cut-offs are in the same magnitude).
 These values are treated as the means of a normal distribution of IgA binding values for each species.
 Species counts are generated on a log distribution for a given number of samples at an even depth.
 For each bacteria in each sample, an IgA binding value is then assigned by sampling from its species IgA value distribution.

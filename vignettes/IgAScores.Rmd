@@ -121,7 +121,7 @@ pscores <-  igascores(posabunds = igapos, negabunds = iganeg, pseudo=pseudo, met
 print(pscores)
 ```
 
-These methods implement the scores described by [Kau et al.](https://dx.doi.org/10.1126%2Fscitranslmed.aaa4877) and [Palm et al.](https://doi.org/10.1016/j.cell.2014.08.006) respectively.
+These methods implement the scores described by [Kau et al.](https://stm.sciencemag.org/content/7/276/276ra24) and [Palm et al.](https://doi.org/10.1016/j.cell.2014.08.006) respectively.
 
 ## Calculating scores for a single taxon from a single sample
 

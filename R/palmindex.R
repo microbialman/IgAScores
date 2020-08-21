@@ -1,6 +1,6 @@
 #' Palm Index
 #'
-#' This function calculates the IgA Index as defined in Palm et al. 2014 (Cell, doi: 10.1016/j.cell.2014.08.006) for a single taxon in a single sample.
+#' This function calculates the immunoglobulin A (IgA) Index as defined in Palm et al. 2014 <doi:10.1016/j.cell.2014.08.006> for a single taxon in a single sample.
 #'
 #' @param posabund Abundance of the bacteria in the IgA positive/high fraction.
 #' @param negabund Abundance of the bacteria in the IgA negative/low fraction.
