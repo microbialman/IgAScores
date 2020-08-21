@@ -1,0 +1,12 @@
+citHeader("To cite IgAScores in publications use:")
+
+citEntry(
+  entry    = "Article",
+  title    = "Accurate identification and quantification of commensal microbiota bound by host immunoglobulins",
+  author   = "Matthew A Jackson and Claire Pearson and Nicholas E Ilott and Kelsey E Huus and Ahmed N Hegazy and Jonathan Webber and B. Brett Finlay and Andrew J Macpherson and Fiona Powrie and Lilian H Lam",
+  journal  = "bioRxiv",
+  year     = "2020",
+  url      = "https://doi.org/10.1101/2020.08.19.257501",
+  publisher = "Cold Spring Harbor Laboratory",
+  textVersion = "Jackson et al. Accurate identification and quantification of commensal microbiota bound by host immunoglobulins bioRxiv 2020."
+)
