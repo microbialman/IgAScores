@@ -33,6 +33,7 @@ igaprobabilityratio(
 This function calculates the ratio of the immunoglobulin A (IgA) positive fraction probability relative to the IgA negative fraction probability for a single taxa in a single sample.
 These probabilities can individually be calculated using the igaprobability() function. As both calculations have the whole fraction taxon abundance as a denominator it cancels.
 This means the IgA probability ratio can be calculated without this information.
+Further details can be found in Jackson et al. (2020, \doi{10.1101/2020.08.19.257501}).
 }
 \examples{
 igaprobabilityratio(posabund=0.2,negabund=0.05,possize=0.05,negsize=0.6,pseudo=0.0002)

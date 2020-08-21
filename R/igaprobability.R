@@ -9,6 +9,8 @@
 #' \item That the abundance of the given taxon in the input sample (or whole fraction) represent the probability that any bacteria is assigned to the taxon.
 #' If there is insufficient levels of a taxa in the whole fraction to account for its abundance in the IgA gate, the function assumes all of the taxa fall within this gate (i.e. a probability of 1).
 #' }
+#' Further details can be found in Jackson et al. (2020, \doi{10.1101/2020.08.19.257501}).
+#'
 #' @param withinabund Abundance of the bacteria in the IgA gate under investigation (can be calculated for either the pos/high or neg/low gating) (abundances should sum to 1 not as a \%).
 #' @param gatesize The fraction of events in the flow cytometer within the gate under investigation (as a decimal fraction not a \%).
 #' @param presortabund Abundance of the bacteria in whole sample before sorting by IgA (abundances should sum to 1 not as a \%).

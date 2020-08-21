@@ -9,6 +9,7 @@
 #' For each bacteria in each sample, an IgA binding value is then assigned by sampling from its species IgA value distribution.
 #' The value thresholds defining the positive and negative gates are then used to generate positive and negative counts tables of the bacteria whose values fall into these groups.
 #' A second mode can also be used (by toggling betweengroups) that will introduce a consistent abundance change in half the samples by increasing one species in them. This can be used to simulate case-control experiments where, as an example,  one taxa has bloomed.
+#' Further details can be found in Jackson et al. (2020, \doi{10.1101/2020.08.19.257501}).
 #'
 #'Note: IgA values are simulated for each bacteria in each sample, setting the combination of the samplingdepth, number of species, and number of samples too high will slow the data generation.
 #'

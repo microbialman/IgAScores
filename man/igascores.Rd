@@ -44,7 +44,7 @@ Scoring method can be chosen by specifying the method parameter as one of: "prob
 Each method requires different inputs as detailed below:
 
 \itemize{
-\item probratio - equivalent to igaprobabilityratio() - requires two separate dataframes with iga positive abundances and iga negative abundances, two vectors with the sizes of the iga postive and negative gates per sample, and a pseudo count
+\item probratio - equivalent to igaprobabilityratio() - requires two separate dataframes with iga positive abundances and iga negative abundances, two vectors with the sizes of the iga positive and negative gates per sample, and a pseudo count
 \item prob - equivalent to igaprobability() - requires a dataframe with iga pos or neg fraction abundances, a vector of iga pos or neg gate size per sample, and a dataframe of taxa abundances in the presort samples
 \item kau - equivalent to kauindex() - requires two separate dataframes with iga positive abundances and iga negative abundances, and a pseudo count
 \item palm - equivalent to palmindex() - requires two separate dataframes with iga positive abundances and iga negative abundances, and a pseudo count

@@ -16,7 +16,7 @@ kauindex(posabund, negabund, pseudo = 1e-05, nazeros = TRUE)
 \item{nazeros}{Return NA if the pos and neg abundances are both zero. Default is TRUE.}
 }
 \description{
-This function calculates the immunoglobulin A (IgA) Index as defined in Kau et al. (2015) <doi:10.1126/scitranslmed.aaa4877> for a single taxon in a single sample.
+This function calculates the immunoglobulin A (IgA) Index as defined in Kau et al. (2015, \doi{10.1126/scitranslmed.aaa4877}) for a single taxon in a single sample.
 }
 \examples{
 kauindex(posabund=0.1,negabund=0.2,pseudo=0.0002)
