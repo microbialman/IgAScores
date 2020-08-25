@@ -1,2 +1,2 @@
 # IgAScores 0.1.1
-* First release of IgAScores
+* First CRAN release of IgAScores
