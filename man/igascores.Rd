@@ -35,7 +35,13 @@ igascores(
 
 \item{nazeros}{Should taxa with zero abundance in both the posabunds and negabunds (posabunds and presortabunds for prob method)  be scored as NA. Default is TRUE.}
 }
+\value{
+A data frame of IgA binding scores for all taxa and samples in the input data frame, generated using the scoring appraoch specified in 'method'.
+}
 \description{
+Calculate various different IgA-Seq scores across all the taxa and samples in an experiment.
+}
+\details{
 This function enables calculation of a variety of different indices for scoring immunoglobulin A (IgA) binding to taxa in IgA sequencing (IgA-Seq) experiments.
 It is designed to be called on dataframes of abundance values, allowing easy calculation of scores across multiple taxa and samples.
 The igaprobabilityratio(), igaprobability(), kauindex() and palmindex() functions can be used to calculate scores for one taxa and one sample.

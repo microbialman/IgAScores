@@ -15,6 +15,9 @@ palmindex(posabund, negabund, pseudo = 1e-05, nazeros = TRUE)
 
 \item{nazeros}{Return NA if the pos and neg abundances are both zero. Default is TRUE.}
 }
+\value{
+A numeric value for the Palm index as defined in Palm et al. (2014, \doi{10.1016/j.cell.2014.08.006}).
+}
 \description{
 This function calculates the immunoglobulin A (IgA) Index as defined in Palm et al. (2014, \doi{10.1016/j.cell.2014.08.006}) for a single taxon in a single sample.
 }

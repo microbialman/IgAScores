@@ -1,11 +1,14 @@
 #' Palm Index
 #'
+#' @description
+#'
 #' This function calculates the immunoglobulin A (IgA) Index as defined in Palm et al. (2014, \doi{10.1016/j.cell.2014.08.006}) for a single taxon in a single sample.
 #'
 #' @param posabund Abundance of the bacteria in the IgA positive/high fraction.
 #' @param negabund Abundance of the bacteria in the IgA negative/low fraction.
 #' @param pseudo Pseudo count added to the abundance of the IgA negative fraction if the bacteria is not in that fraction. Defaults to 1e-5. Recommend setting to minimum observed abundance in whole dataset.
 #' @param nazeros Return NA if the pos and neg abundances are both zero. Default is TRUE.
+#' @return A numeric value for the Palm index as defined in Palm et al. (2014, \doi{10.1016/j.cell.2014.08.006}).
 #' @keywords iga coating index Palm iga-seq
 #' @export
 #' @examples

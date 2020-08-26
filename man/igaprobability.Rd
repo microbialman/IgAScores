@@ -15,7 +15,13 @@ igaprobability(withinabund, gatesize, presortabund, nazeros = TRUE)
 
 \item{nazeros}{Return NA if the within and tot abundances are both zero. Default is TRUE.}
 }
+\value{
+A numeric value for the IgA Positive/Negative Probability (depending on the data used for 'withinabund' and 'gatesize') as defined in Jackson et al. (2020, \doi{10.1101/2020.08.19.257501}).
+}
 \description{
+Calculate the IgA Postive/Negative Probability as described in Jackson et al. (2020, \doi{10.1101/2020.08.19.257501}).
+}
+\details{
 This function calculates the conditional probability that at bacteria will be sufficiently bound/not bound to immunoglobulin A (IgA) to end up in a given IgA gate based on its taxonomy. Calculated on one taxa for one sample.
 
 This uses Bayes' theorem assuming:

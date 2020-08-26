@@ -1,11 +1,14 @@
 #' Kau Index
 #'
+#' @description
+#'
 #' This function calculates the immunoglobulin A (IgA) Index as defined in Kau et al. (2015, \doi{10.1126/scitranslmed.aaa4877}) for a single taxon in a single sample.
 #'
 #' @param posabund The abundance of the bacteria in the IgA positive/high fraction (abundances should sum to 1 not as a \%).
 #' @param negabund The abundance of the bacteria in the IgA negative/low fraction (abundances should sum to 1 not as a \%).
 #' @param pseudo Pseudo count added to both the IgA positive and negative fraction values prior to calculation. Defaults to 1e-5. Recommend setting to minimum observed abundance in whole dataset.
 #' @param nazeros Return NA if the pos and neg abundances are both zero. Default is TRUE.
+#' @return A numeric value for the Kau index as defined in Kau et al. (2015, \doi{10.1126/scitranslmed.aaa4877}).
 #' @keywords iga index Kau iga-seq
 #' @export
 #' @examples

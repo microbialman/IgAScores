@@ -1,5 +1,11 @@
 #' IgA Probability
+#'
 #' @description
+#'
+#' Calculate the IgA Postive/Negative Probability as described in Jackson et al. (2020, \doi{10.1101/2020.08.19.257501}).
+#'
+#' @details
+#'
 #' This function calculates the conditional probability that at bacteria will be sufficiently bound/not bound to immunoglobulin A (IgA) to end up in a given IgA gate based on its taxonomy. Calculated on one taxa for one sample.
 #'
 #' This uses Bayes' theorem assuming:
@@ -15,6 +21,7 @@
 #' @param gatesize The fraction of events in the flow cytometer within the gate under investigation (as a decimal fraction not a \%).
 #' @param presortabund Abundance of the bacteria in whole sample before sorting by IgA (abundances should sum to 1 not as a \%).
 #' @param nazeros Return NA if the within and tot abundances are both zero. Default is TRUE.
+#' @return A numeric value for the IgA Positive/Negative Probability (depending on the data used for 'withinabund' and 'gatesize') as defined in Jackson et al. (2020, \doi{10.1101/2020.08.19.257501}).
 #' @keywords iga probability iga-seq
 #' @export
 #' @examples

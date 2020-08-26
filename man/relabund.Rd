@@ -7,9 +7,12 @@
 relabund(counttable, percentage = FALSE)
 }
 \arguments{
-\item{counttable}{Dataframe with rows as observations and columns as samples.}
+\item{counttable}{Data frame of numeric values with rows as observations and columns as samples.}
 
 \item{percentage}{Should values be returned as a percentage? i.e multiplied by 100. Default is FALSE (as required for most IgA scoring approaches).}
+}
+\value{
+A data frame of the input data normalised by column (to sum to either 1 or 100).
 }
 \description{
 This function converts values in a dataframe to a fraction/percentage of the sum of their column.

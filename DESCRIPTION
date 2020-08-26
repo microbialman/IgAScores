@@ -1,6 +1,6 @@
 Package: IgAScores
 Title: Score Taxon-Level IgA Binding in IgA-Seq Experiments
-Version: 0.1.1
+Version: 0.1.2
 Authors@R: 
     person(given = "Matthew",
            family = "Jackson",

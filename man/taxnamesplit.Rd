@@ -11,6 +11,9 @@ taxnamesplit(names, level = "genus")
 
 \item{level}{taxonomic level to split at must be in range phylum to species (default is genus).}
 }
+\value{
+A string (or vector of strings if input is a vector) containing the second part of the input string split at the given taxonomic level.
+}
 \description{
 This function splits a full taxonomic lineage as a given level and returns the latter half.
 }

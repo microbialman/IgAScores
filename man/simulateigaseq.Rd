@@ -38,7 +38,30 @@ simulateigaseq(
 
 \item{betweensp}{Species (by index) to increased in between groups simulation. Chosen at random if NULL (default).}
 }
+\value{
+A list containing the simulated data set and relevant input parameters.
+\itemize{
+  \item presortcounts - A data frame containing simulated species counts for each sample in the pre-sort sample.
+  \item presortabunds - presortcounts as relative abundances.
+  \item poscounts - A data frame containing simulated species counts for each sample in the IgA positive fraction.
+  \item posabunds - poscounts as relative abundances.
+  \item negcounts - A data frame containing simulated species counts for each sample in the IgA negative fraction.
+  \item negabunds - negcounts as relative abundances.
+  \item possizes - A vector of the IgA positive fraction sizes for each sample.
+  \item negsizes - A vector of the IgA negative fraction sizes for each sample.
+  \item igabinding - A long format data frame containing the simulated IgA binding values for all simulated bacteria used to generate the count tables.
+  \item igavalmeans - A vector of the mean IgA values for each species used in the simulation.
+  \item igavalsds - A vector of the standard deviations of the IgA values for each species used in the simulation.
+  \item posthresh - Numeric, the lower threshold used to determine a bacteria is IgA postive in the simulation.
+  \item negthresh - Numeric, the upper threshold used to determine a bacteria is IgA negative in the simulation.
+  \item expgroup - A vector showing class labels for the experimental group of each sample in the experiment. Will be uniform unless doing between group simulations.
+  \item expspecies - Numeric, showing which species was modelled as differentially abundant between experimental groups when carryingout between group simulations.
+}
+}
 \description{
+Simulates IgA-Seq to create datasets with a defined binding distribution that can be used to test scoring method performance
+}
+\details{
 This function will generate a simulated immunoglobulin A sequencing (IgA-Seq) data set starting from a list containing the mean (and standard deviations) of IgA binding values expected for each species and cut-offs for defining the IgA positive and negative gates.
 The input is a vector giving the average IgA value of each species (any arbitrary value that will represent the relative level of IgA binding between the species, ensure standard deviation and cut-offs are in the same magnitude).
 These values are treated as the means of a normal distribution of IgA binding values for each species.
