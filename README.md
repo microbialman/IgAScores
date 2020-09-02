@@ -7,7 +7,13 @@ For a detailed consideration of the methods that are used for scoring IgA-Seq da
 
 ### Install
 
-This package can be installed from GitHub using [devtools](https://github.com/r-lib/devtools).
+The latest release of IgAScores can be installed from CRAN:
+
+```r
+install.packages("IgAScores")
+```
+
+Alternatively the latest development version can be installed from GitHub using [devtools](https://github.com/r-lib/devtools).
 
 ```r
 if (!require(devtools)){install.packages('devtools')}
