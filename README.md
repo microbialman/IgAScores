@@ -13,7 +13,7 @@ The latest release of IgAScores can be installed from CRAN:
 install.packages("IgAScores")
 ```
 
-Alternatively the latest development version can be installed from GitHub using [devtools](https://github.com/r-lib/devtools).
+Alternatively the latest development version can be installed from GitHub using [devtools](https://github.com/r-lib/devtools):
 
 ```r
 if (!require(devtools)){install.packages('devtools')}
