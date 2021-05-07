@@ -3,7 +3,7 @@
 The IgAScores package is used to calculate taxon-level IgA binding scores from IgA-Seq data.
 It also includes several helper functions for managing microbiome data and simulating IgA-Seq datasets for method testing. 
 
-For a detailed consideration of the methods that are used for scoring IgA-Seq data, see the [associated paper](https://biorxiv.org/cgi/content/short/2020.08.19.257501v1).
+For a detailed consideration of the methods that are used for scoring IgA-Seq data, see the [associated paper](https://doi.org/10.1186/s40168-020-00992-w).
 
 ### Install
 
