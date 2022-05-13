@@ -1,4 +1,4 @@
-## IgAScores
+# IgAScores <p>[![](https://cranlogs.r-pkg.org/badges/IgAScores)](https://cran.r-project.org/package=IgAScores)</p>
 
 The IgAScores package is used to calculate taxon-level IgA binding scores from IgA-Seq data.
 It also includes several helper functions for managing microbiome data and simulating IgA-Seq datasets for method testing. 
